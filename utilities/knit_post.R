@@ -1,12 +1,13 @@
 # adapted from Andrew Brooks
 # (http://brooksandrew.github.io/simpleblog/articles/blogging-with-r-markdown-and-jekyll-using-knitr/)
 
-KnitPost <- function(site.path='~/Documents/Projects/llefebure.github.io/', overwriteAll=F, overwriteOne=NULL) {
+KnitPost <- function(site.path='~/Documents/Projects/llefebure.github.io/', rmd.path='',
+                     overwriteAll=F, overwriteOne=NULL) {
   if(!'package:knitr' %in% search()) library('knitr')
   
   ## Blog-specific directories.  This will depend on how you organize your blog.
   site.path <- site.path # directory of jekyll blog (including trailing slash)
-  rmd.path <- paste0(site.path, "_R") # directory where your Rmd-files reside (relative to base)
+  rmd.path <- paste0('~/Documents/Projects/llefebure.github.io/_R/', rmd.path)
   fig.dir <- "assets/Rfig/" # directory to save figures
   posts.path <- paste0(site.path, "_posts/") # directory for converted markdown files
   cache.path <- paste0(site.path, "_cache") # necessary for plots

@@ -3,9 +3,9 @@
 # Site wide configuration
 ####################################
 #
-title: Leonids
+title: Luke Lefebure
 email:
-description: A simple and awesome blog theme powered by jekyll.
+description: My blog and personal site
 url: # the base hostname & protocol for your site
 
 
@@ -37,7 +37,7 @@ owner:
   avatar: profile_pic.jpg
   job: "Data Scientist"
   bio: "I am a data scientist, athlete, and traveler."
-  email: "luke.lefebure@gmail.com"
+  email:
   disqus-shortname:
   twitter: #username
   facebook: #username
@@ -48,9 +48,9 @@ owner:
     ad-client:
     ad-slot:
   bing-verify:
-  github: "llefebure"
+  github: llefebure
   stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
-  linkedin: #username
+  linkedin: luke-lefebure-35263056
   xing: #username
   instagram: #username
   lastfm: #username

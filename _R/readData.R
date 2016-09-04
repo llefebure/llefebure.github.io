@@ -17,7 +17,8 @@ readData <- function(dir = "../data/", db = "database.sqlite", fn = "data.rds") 
       collect()
     df <- df %>% 
       mutate(created_timestamp = as.POSIXct(created_utc, tz = "UTC", origin = "1970-01-01"),
-             created_date = as.Date(format(created_timestamp, "%Y-%m-%d")))
+             created_date = as.Date(format(created_timestamp, "%Y-%m-%d")),
+             body_length = length(str_split(body, " ")[[1]]))
     saveRDS(df, fn)
   }
   return(df)

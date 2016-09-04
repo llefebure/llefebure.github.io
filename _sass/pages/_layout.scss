@@ -28,7 +28,7 @@
   }
   .author_name {
     display: block;
-    color: $author_name;
+    color: #F36170;
     font-size: 1.75em;
     text-transform: lowercase;
   }
@@ -50,7 +50,7 @@
     padding: 0 0px 80px;
   }
 }
-.social-links {
+.social-links-new {
   margin-top: 0.5em;
   ul {
     margin: 0;
@@ -69,6 +69,15 @@
     }
   }
 }
+
+.my-fa-lnkd:before {
+  content: "\f0e1";
+} 
+
+.my-fa-gthb:before {
+  content: "\f09b";
+}
+
 .nav-list {
   margin: 0;
   padding: 0;

@@ -1,0 +1,102 @@
+---
+title: "Visualizing the 2015 Champions League Semifinal on Reddit"
+output: html_document
+---
+
+Reddit is a rich corpus of online messageboard posts about an endless variety of topics, and Kaggle hosts a user friendly sqlite database of posts from May of 2015. During that month, four semifinalists remaining in the Champions League competition played two game series' for a spot in the final. What did the discussion of the competition look like on Reddit? In this post, I'll use the `ggplot2` package to visualize activity on the site during the competition.
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr) # data manipulation
+library(stringr) # string manipulation
+library(knitr) # nice tables
+library(ggplot2) # plotting
+source("readData.R") # read and process from sqlite db
+```
+
+## Data
+
+Reddit is organized by subreddits under which discussions about a certain topic occur. While there are many subreddits related to soccer, I'll focus solely on discussion that occurred under the /r/soccer (https://www.reddit.com/r/soccer) subreddit. `dplyr` makes it very easy to read and filter data directly from sqlite (see readData.R for the `readData` function definition).
+
+```{r}
+df <- readData()
+```
+
+Attached to each post/comment are a number of attributes. Of particular interest is "author\_flair\_text". Users in the /r/soccer subreddit use "flairs" to indicate a team logo that shows up next to their username when they post. I'll assume that a user supports or is a fan of a team if they post using that team's flair. I'll use the terms supporter and user in the context of a team synonymously to mean that they posted using that team's flair.
+
+```{r}
+names(df)
+```
+
+## User Analysis
+
+Which teams are the best represented on Reddit? Below are the ten with the largest number of posts by supporters. Also shown is the number of unique users for each team.
+```{r}
+supporter_counts <- df %>% 
+  filter(!is.na(author_flair_text)) %>%
+  group_by(author_flair_text) %>%
+  summarize(comments = n(), users = n_distinct(author))
+kable(head(supporter_counts %>% 
+             select(author_flair_text, comments, users) %>% 
+             arrange(desc(comments)), n = 10), 
+      align = "c", col.names = c("Team", "Comments", "Users"))
+```
+
+All four of the Champions League semifinalists (Barcelona, Bayern Munich, Juventus, and Real Madrid) appear here. If you look closely, you'll see that some team's supporters are more active than others. Juventus, for example, has relatively few unique users, yet they sit very high in the table. To see this relationship more clearly, the plot below looks at the relationship between the number of comments and the number of unique users.
+
+```{r}
+fit_coef <- coef(lm(comments~users, supporter_counts)) # linear trendline
+ggplot(supporter_counts, aes(x = users, y = comments)) +
+  geom_point() +
+  geom_text(aes(label = ifelse(users > 400, author_flair_text, "")), size = 4, hjust = -.05) +
+  theme_light(base_size=16) + 
+  labs(xlab = "# of Unique Users", ylab = "# of Comments") +
+  xlim(c(0, 2900)) +
+  ggtitle("Active Supporters") + 
+  geom_abline(intercept = fit_coef[1], slope = fit_coef[2])
+```
+
+All of the semifinalists appear above the linear trend line in this scatterplot indicating more activity from users than that of an average team. This makes sense since we would expect users to post more when their team is playing in a major competition, in the news frequently, etc.
+
+Juventus in particular appears to lie the furthest from the trendline among the semifinalists. This could possibly be the result of hype surrounding the Italian side's first Champions League final appearance since 2003 (Real Madrid, Bayern Munich, and Barcelona are all heavyweights, being crowned champions in 2014, 2013, and 2011 respectively). 
+
+Another point of interest in this plot is the United States (USMNT) falling far below the trend line. The USMNT played no games in May 2015, so perhaps there was not much to talk about. Another contributing factor could be that more active Redditors switched flairs to their in season club side.
+
+## Post Volume
+Each semifinal matchup was a two game series, and scores were added to determine which team advanced to the final. The first leg featured Real Madrid at Juventus on May 5 and Bayern Munich at Barcelona on May 6.
+
+* Juventus 2 - 1 Real Madrid
+* Barcelona 3 - 0 Bayern Munich
+
+The second leg matches occurred a week later, with Barcelona at Bayern Munich on May 12, and Juventus at Real Madrid on May 13.
+
+* Bayern Munich 3 - 2 Barcelona
+* Real Madrid 1 - 1 Juventus
+
+What did post volume look like on gamedays? In particular, did users post more on the days when their team played? As seen previously, the number of users for each team varies, so it makes sense to normalize the post volume instead of directly plotting the number of comments by users for each team. I do this by looking at the number of comments per user as a proportion of the mean daily number of comments. More precisely, if $comm$ is the number of comments by Barcelona supporters on a given day and $avg$ is the average number of comments per day by Barcelona supporters, the normalized quantity is $(comm - avg)/avg$. Below, the normalized post volume is plotted against time.
+
+```{r}
+semis <- df %>%
+  filter(author_flair_text %in% c("Barcelona", "Bayern München", "Juventus", "Real Madrid")) %>%
+  group_by(created_date, author_flair_text) %>%
+  summarize(comments = n()) %>%
+  group_by(author_flair_text) %>%
+  mutate(team_mean = mean(comments), dev = comments/team_mean - 1) %>%
+  ungroup()
+head(semis)
+```
+
+```{r}
+ggplot(semis, aes(x=created_date, y=dev, group=author_flair_text, color = author_flair_text)) +
+  geom_line() +
+  theme_light(base_size=16) +
+  labs(x = "Date", y = "Normalized Post Volume", title = "Normalized Volume of Posts") +
+  scale_colour_discrete(name = "Team") + 
+  geom_vline(aes(xintercept=as.numeric(as.Date("2015-05-05"))), linetype = 2) +
+  geom_vline(aes(xintercept=as.numeric(as.Date("2015-05-06"))), linetype = 2) +
+  geom_vline(aes(xintercept=as.numeric(as.Date("2015-05-12"))), linetype = 2) +
+  geom_vline(aes(xintercept=as.numeric(as.Date("2015-05-13"))), linetype = 2)
+```
+
+There is a clear spike in activity on gamedays from both the winning and losing sides. Games were played at 8:45 PM local time (UTC+2) and the time scale on the axis is UTC, so the count of comments on gameday includes pregame commentary as well as immediate postgame commentary. The largest spike in volume is from Bayern supporters on the day of their crippling defeat at Barcelona in the first leg. This game undoubtedly left them frustrated and eager to vent on Reddit. The defeat also meant that the next game in the series would be far less exciting because Bayern would have to win by at least three goals to have a chance at advancing -- an extremely unlikely result given the context. This could explain why the peak for the second game in that series is comparatively small. In contrast, the peaks for the other series, which was more even, are similar on both gamedays.
+
+The surge in comments from Bayern supporters after their defeat in game one begs further investigation. One would expect these comments to be distinguishable from those of their opponents because of complaints, excuses, and other negative language. In the next post, I'll explore classification methods for this task. 
