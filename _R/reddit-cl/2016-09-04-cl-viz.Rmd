@@ -123,4 +123,6 @@ ggplot(semis, aes(x=created_date, y=dev, group=author_flair_text, color = author
 
 There is a clear spike in activity on gamedays from both the winning and losing sides. The largest is from Bayern supporters on the day of their crippling defeat at Barcelona in the first leg. This game undoubtedly left them frustrated and eager to vent on Reddit. The defeat also meant that the next game in the series would be far less exciting because Bayern would have to win by at least three goals to have a chance at advancing -- an extremely unlikely result given the context. This could explain why the peak for the second game in that series is comparatively small. In contrast, the peaks for the other series, which was more even, are similar on both gamedays.
 
-The surge in comments from Bayern supporters after their defeat in game one begs further investigation. One would expect these comments to be characterized by complaints, excuses, and other negative language. In the next post, I will explore classification methods for distinguishing between the comments of the winners and losers.
+## Conclusion
+
+The analysis presented here shows how activity on Reddit changed in response to the Champions League. It additionally revealed another event that was not the focus of this post -- news breaking about the FIFA corruption scandal. As a data scientist, I like to work on projects that connect to real events and decisions. Visualization is an important link in conveying that connection.
