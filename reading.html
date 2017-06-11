@@ -6,32 +6,39 @@ permalink: /reading/
 
 <div class="archive">
   
-  <p>I am curious about the world, so I like reading non-fiction on topics such as international affairs and current events.</p>
+  <p>I enjoy reading primarily non-fiction on topics such as international affairs and current events.</p>
+  <div id="goodreads-widget">
+          <style type="text/css" media="screen">
+        .gr_grid_container {
+          /* customize grid container div here. eg: width: 500px; */
+        }
 
-  <div class="timeline" id="timeline">
-    {% assign prev_year = -1 %}
-    {% for book in site.data.reading_list reversed %}
+        .gr_grid_book_container {
+          /* customize book cover container div here */
+          float: left;
+          width: 98px;
+          height: 160px;
+          padding: 0px 0px;
+          overflow: hidden;
+        }
+      </style>
+      <div id="gr_grid_widget_1497204777">
+        <!-- Show static html as a placeholder in case js is not enabled - javascript include will override this if things work -->
+          <div class="gr_grid_container">
+    <div class="gr_grid_book_container"><a title="Europe's Last Chance: Why the European States Must Form a More Perfect Union" href="https://www.goodreads.com/book/show/29502365-europe-s-last-chance"><img alt="Europe's Last Chance: Why the European States Must Form a More Perfect Union" border="0" src="https://images.gr-assets.com/books/1458494874m/29502365.jpg" /></a></div>
+    <div class="gr_grid_book_container"><a title="A Land Without Borders: My Journey Around East Jerusalem and the West Bank" href="https://www.goodreads.com/book/show/31944700-a-land-without-borders"><img alt="A Land Without Borders: My Journey Around East Jerusalem and the West Bank" border="0" src="https://images.gr-assets.com/books/1475302988m/31944700.jpg" /></a></div>
+    <div class="gr_grid_book_container"><a title="How Cycling Can Save the World" href="https://www.goodreads.com/book/show/31146560-how-cycling-can-save-the-world"><img alt="How Cycling Can Save the World" border="0" src="https://images.gr-assets.com/books/1469408146m/31146560.jpg" /></a></div>
+    <div class="gr_grid_book_container"><a title="The Way of the Strangers: Encounters with the Islamic State" href="https://www.goodreads.com/book/show/33511418-the-way-of-the-strangers"><img alt="The Way of the Strangers: Encounters with the Islamic State" border="0" src="https://images.gr-assets.com/books/1482171047m/33511418.jpg" /></a></div>
+    <div class="gr_grid_book_container"><a title="The Fires of Spring: A Post-Arab Spring Journey Through the Turbulent New Middle East - Turkey, Iraq, Qatar, Jordan, Egypt, and Tunisia" href="https://www.goodreads.com/book/show/25663698-the-fires-of-spring"><img alt="The Fires of Spring: A Post-Arab Spring Journey Through the Turbulent New Middle East - Turkey, Iraq, Qatar, Jordan, Egypt, and Tunisia" border="0" src="https://images.gr-assets.com/books/1456092185m/25663698.jpg" /></a></div>
+    <div class="gr_grid_book_container"><a title="The Mayor of Mogadishu: A Story of Chaos and Redemption in the Ruins of Somalia" href="https://www.goodreads.com/book/show/28220668-the-mayor-of-mogadishu"><img alt="The Mayor of Mogadishu: A Story of Chaos and Redemption in the Ruins of Somalia" border="0" src="https://images.gr-assets.com/books/1453059804m/28220668.jpg" /></a></div>
+    <div class="gr_grid_book_container"><a title="Black Flags: The Rise of ISIS" href="https://www.goodreads.com/book/show/25241317-black-flags"><img alt="Black Flags: The Rise of ISIS" border="0" src="https://images.gr-assets.com/books/1430514347m/25241317.jpg" /></a></div>
+    <div class="gr_grid_book_container"><a title="Narconomics: How to Run a Drug Cartel" href="https://www.goodreads.com/book/show/25159062-narconomics"><img alt="Narconomics: How to Run a Drug Cartel" border="0" src="https://images.gr-assets.com/books/1445052495m/25159062.jpg" /></a></div>
+    <div class="gr_grid_book_container"><a title="And Then All Hell Broke Loose: Two Decades in the Middle East" href="https://www.goodreads.com/book/show/25814413-and-then-all-hell-broke-loose"><img alt="And Then All Hell Broke Loose: Two Decades in the Middle East" border="0" src="https://images.gr-assets.com/books/1454863999m/25814413.jpg" /></a></div>
+  <noscript><br/>Share <a href="/">book reviews</a> and ratings with Luke, and even join a <a href="/group">book club</a> on Goodreads.</noscript>
+  </div>
 
-    {% if book.year != prev_year %}
-
-    {% if prev_year != -1 %}
-    </ul>
-    {% endif %}
-
-    {% assign prev_year = book.year %}
-    <div class="archive-title">
-      <h4 class="archive-year">{{ book.year }}</h4>
-    </div>
-    <ul>
-    {% endif %}
-    
-    <li>
-      <div style="width:60px;float:left;">{{ book.month }}</div> <a href="{{ book.link }}">{{ book.title }}</a> - {{ book.author }}
-    </li>
-
-    {% endfor %}
-    </ul>
-    
+      </div>
+      <script src="https://www.goodreads.com/review/grid_widget/62599959.Luke's%20bookshelf:%20read?cover_size=medium&hide_link=true&hide_title=true&num_books=20&order=d&shelf=read&sort=date_added&widget_id=1497204777" type="text/javascript" charset="utf-8"></script>
 
   </div>
 
