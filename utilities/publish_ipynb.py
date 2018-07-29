@@ -1,4 +1,7 @@
 # Script for converting ipynb into markdown formatted to display on the jekyll site
+# Should be run from the same directory as the ipynb that is being converted.
+# Note that if the post doesn't have additional figures, etc, the last two
+# bash commands will fail, but that's okay.
 import argparse
 import datetime
 import os
