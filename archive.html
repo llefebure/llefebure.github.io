@@ -26,7 +26,11 @@ permalink: /archive/
     {% endif %}
     {% endunless %}
     <li>
+      {% if post.link %}
+      <div style="width:60px;float:left;">{{ post.date | date: "%b %-d" }}</div> <a target="_blank" href="{{ post.link }}">{{ post.title }}</a></li>
+      {% else %}
       <div style="width:60px;float:left;">{{ post.date | date: "%b %-d" }}</div> <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></li>
+      {% endif %}
     {% endfor %}
     </ul>
 
