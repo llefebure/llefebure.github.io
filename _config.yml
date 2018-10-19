@@ -41,7 +41,8 @@ owner:
   disqus-shortname:
   twitter: #username
   facebook: #username
-  kaggle: llefebure
+  kaggle: #TODO
+  medium: "@luke.lefebure"
   google:
     plus: #username
     analytics: UA-83929462-1
