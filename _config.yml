@@ -38,7 +38,7 @@ owner:
   job: "Data Scientist"
   bio: "I am a data scientist, athlete, and traveler."
   email:
-  disqus-shortname:
+  disqus-shortname: llefebure
   twitter: #username
   facebook: #username
   kaggle: #TODO
@@ -51,7 +51,7 @@ owner:
     ad-slot:
   bing-verify:
   github: llefebure
-  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+  stackoverflow: 11386658/luke-lefebure
   linkedin: luke-lefebure-35263056
   xing: #username
   instagram: #username
