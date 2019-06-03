@@ -122,3 +122,7 @@ pre code {
   .vi { color: #B8860B } /* Name.Variable.Instance */
   .il { color: #666666 } /* Literal.Number.Integer.Long */
 }
+
+.input_area, .output_area {
+  padding: 5px 0px 5px 0px;
+}

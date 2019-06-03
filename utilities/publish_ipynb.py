@@ -3,7 +3,7 @@
 # Note that if the post doesn't have additional figures, etc, the last two
 # bash commands will fail, but that's okay.
 #
-# If the notebook contains plotly plots, some manual postprocessing is required.
+# If the notebook contains plotly plots, some manual postprocessing might be required.
 #   1. First ensure that init_notebook_mode(connected=False) is set in the notebook.
 #   2. The markdown will have a big script tag at the beginning with all of
 #      plotly and then later script tags for each of the plots. Remove the
@@ -16,6 +16,7 @@ import datetime
 import os
 
 STEM = "/Users/lukelefebure/Documents/Projects/llefebure.github.io"
+CUSTOM_TEMPLATE = "/utilities/custom_template.tpl"
 POST_DIR = "/_posts/"
 PLOT_DIR = "/assets/Pyfig/"
 
@@ -25,7 +26,10 @@ def convert(args):
     tmp_dir = post_name + "_files" # dir created by nbconvert
     post_nm = STEM + POST_DIR + str(today) + "-" + post_name + ".md" # final post name
     cmds = [
-        "jupyter nbconvert --to markdown {f}".format(f = args.ipynb),
+        "jupyter nbconvert --to markdown --template {tpl} {f}".format(
+            tpl = STEM + CUSTOM_TEMPLATE,
+            f = args.ipynb
+        ),
         "mv {md} {post_nm}".format(md = post_name + ".md", post_nm = post_nm),
         "cp ./{tmp_dir}/* {plot_dir}".format(tmp_dir = tmp_dir, plot_dir = STEM + PLOT_DIR),
         "rm -rf ./{tmp_dir}/".format(tmp_dir = tmp_dir)
