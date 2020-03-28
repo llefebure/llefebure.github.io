@@ -35,8 +35,8 @@ kramdown:
 owner:
   name: Luke Lefebure
   avatar: profile_pic.jpg
-  job: "Data Scientist"
-  bio: "I am a data scientist, athlete, and traveler."
+  job: ""
+  bio: ""
   email:
   disqus-shortname: llefebure
   twitter: #username
